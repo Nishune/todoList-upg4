@@ -1,29 +1,29 @@
 //JS-code for todo-app.
 
-const inputTodo = document.querySelector("#inputTodo"); //test input
-const addBtn = document.querySelector("#addBtn"); //Button
-const infoTodo = document.querySelector("#infoTodo");
-const todoList = document.querySelector("#todoList");
-const message = document.querySelector("#message");
-const todoArray = [];
-let taskCount = 0;
-let completedCount = 0;
+const inputTodo = document.querySelector("#inputTodo"); //This is the input text field.
+const addBtn = document.querySelector("#addBtn"); //This is the add button.
+const infoTodo = document.querySelector("#infoTodo"); //This is the task-counter text.
+const todoList = document.querySelector("#todoList"); //This is list (ul).
+const message = document.querySelector("#message"); //This is the message to user if text is not entered.
+const todoArray = []; //The array.
+let taskCount = 0; //task counter.
+let completedCount = 0; //completed task counter.
 
 function updateTaskCount() {
-  infoTodo.innerText = `Task Counter: ${completedCount}/${taskCount}`;
+  infoTodo.innerText = `Task Counter: ${completedCount}/${taskCount}`; //Updating the task counter.
 }
 
 addBtn.addEventListener("click", function () {
   //get value from input
   let text = inputTodo.value;
 
-  //condition: check input to empty => message user.
+  //Checking if user entered any text, if not message to add a task.
   if (text.length == 0) {
     message.innerText = "Please add a task.";
     return;
   }
   message.innerText = "";
-  //create new todo-object
+  //create new todo-object with date as unique id for identifying
   const newTodo = {
     id: Date.now(),
     text: text,
@@ -36,12 +36,12 @@ addBtn.addEventListener("click", function () {
   updateTaskCount();
 
   //add new html element in ul.
-  const listItem = document.createElement("li"); //listitem skapar en li
-  todoList.appendChild(listItem); // todolist (ul) appendar li elementet
+  const listItem = document.createElement("li"); //listitem creates a new <li> element.
+  todoList.appendChild(listItem); // todolist (ul) appends the <li> element.
 
-  const itemLabel = document.createElement("span"); //itemlabel skapar ett span(form av text som <p>)
-  itemLabel.innerText = text; //itemLabel (span) får texten som användaren skrivit in
-  listItem.appendChild(itemLabel); //listItem (li elementet) appendar texten
+  const itemLabel = document.createElement("span"); // creates a span for the itemLabel.
+  itemLabel.innerText = text; //itemLabels span gets the text that the user has entered.
+  listItem.appendChild(itemLabel); //listItem (li) appends the text.
 
   //adding the delete button with icons from Font Awesome, giving it class name and append it to the list.
   const deleteBtn = document.createElement("button");
@@ -51,15 +51,14 @@ addBtn.addEventListener("click", function () {
 
   //Adding event listener for the delete button
   deleteBtn.addEventListener("click", function (event) {
-    event.stopPropagation();
+    event.stopPropagation(); //added stopPropagation to not trigger the other eventlistener.
     listItem.remove();
 
     //Using findindex, when deleting pressing delete button todo represents a object in the todoArray, todo.id stores the id for the object in the iteration.
     // Then we compare that id with newTodo.id. If its a match, it gets deleted.
-
     let taskPosition = todoArray.findIndex((todo) => todo.id === newTodo.id);
 
-    if (taskPosition !== -1) {
+    if (taskPosition > -1) {
       todoArray.splice(taskPosition, 1);
       taskCount--;
     }
