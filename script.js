@@ -10,7 +10,7 @@ let taskCount = 0;
 let completedCount = 0;
 
 function updateTaskCount() {
-  infoTodo.innerText = `${completedCount}/${taskCount}`;
+  infoTodo.innerText = `Task Counter: ${completedCount}/${taskCount}`;
 }
 
 addBtn.addEventListener("click", function () {
@@ -50,29 +50,31 @@ addBtn.addEventListener("click", function () {
   listItem.appendChild(deleteBtn);
 
   //Adding event listener for the delete button
-  deleteBtn.addEventListener("click", function(){
+  deleteBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
     listItem.remove();
 
     //Using findindex, when deleting pressing delete button todo represents a object in the todoArray, todo.id stores the id for the object in the iteration.
     // Then we compare that id with newTodo.id. If its a match, it gets deleted.
 
-    let taskPosition = todoArray.findIndex(todo => todo.id === newTodo.id);
+    let taskPosition = todoArray.findIndex((todo) => todo.id === newTodo.id);
 
     if (taskPosition !== -1) {
-
-        todoArray.splice(taskPosition, 1);
-        taskCount--;
+      todoArray.splice(taskPosition, 1);
+      taskCount--;
     }
     if (newTodo.completed) {
-        completedCount--;
+      completedCount--;
     }
-updateTaskCount();
-
+    updateTaskCount();
   });
 
   //add eventListener to the new span element
-  itemLabel.addEventListener("click", function () {
-    itemLabel.classList.toggle("completed");
+  listItem.addEventListener("click", function (event) {
+    if (!event.target.closest(".delete-btn")) {
+      itemLabel.classList.toggle("completed");
+      listItem.classList.toggle("completed-task");
+    }
     newTodo.completed = !newTodo.completed;
     //if completed / not completed add or remove from counter
     if (newTodo.completed) {
@@ -81,8 +83,7 @@ updateTaskCount();
       completedCount--;
     }
     updateTaskCount();
-
-    //add and remove class completed
   });
+  //Clearing the input field.
   inputTodo.value = "";
 });
