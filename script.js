@@ -1,4 +1,4 @@
-//JS-code for todo-app.
+//JS-code for todo-app..
 
 const inputTodo = document.querySelector("#inputTodo"); //This is the input text field.
 const addBtn = document.querySelector("#addBtn"); //This is the add button.
