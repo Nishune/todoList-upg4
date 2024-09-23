@@ -86,3 +86,10 @@ addBtn.addEventListener("click", function () {
   //Clearing the input field.
   inputTodo.value = "";
 });
+//Added eventlistener for keypres = Enter so the user gets another option for adding to the list.
+//By calling addBtn.click, this will simulate a click on the add button and start the same function.
+inputTodo.addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    addBtn.click();
+  }
+});
