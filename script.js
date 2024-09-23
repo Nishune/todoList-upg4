@@ -1,4 +1,4 @@
-//JS-code for todo-app..
+//JS-code for todo-app!
 
 const inputTodo = document.querySelector("#inputTodo"); //This is the input text field.
 const addBtn = document.querySelector("#addBtn"); //This is the add button.
@@ -88,7 +88,7 @@ addBtn.addEventListener("click", function () {
 });
 //Added eventlistener for keypres = Enter so the user gets another option for adding to the list.
 //By calling addBtn.click, this will simulate a click on the add button and start the same function.
-inputTodo.addEventListener("keydown", function(event) {
+inputTodo.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     addBtn.click();
   }
