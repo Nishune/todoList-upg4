@@ -70,7 +70,9 @@ addBtn.addEventListener("click", function () {
 
   //add eventListener to the new span element
   listItem.addEventListener("click", function (event) {
+    //Checks if the click did not occur on the delete button
     if (!event.target.closest(".delete-btn")) {
+      //Toggles the completed class
       itemLabel.classList.toggle("completed");
       listItem.classList.toggle("completed-task");
     }
